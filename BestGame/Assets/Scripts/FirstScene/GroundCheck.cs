@@ -1,20 +1,23 @@
+using System;
 using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
-    private bool _isGround = false;
-
-    public bool IsGround => _isGround;
+    public Action OnLanded;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Ground")
-            _isGround = true;
+        {
+            Player.moveState = MoveState.Idle;
+            OnLanded?.Invoke();
+        }
+            
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Ground")
-            _isGround = false;
+            Player.moveState = MoveState.Jump;
     }
 }

@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpHeight = 3f;
 
     public static MoveState moveState = MoveState.Idle;
+    public static AttackState attackState = AttackState.Passive;
 
     private Rigidbody2D _rigidbody2D;
 
@@ -100,4 +101,10 @@ public enum MoveState
     Idle,
     Walk,
     Jump
+}
+
+public enum AttackState
+{
+    Active,
+    Passive
 }

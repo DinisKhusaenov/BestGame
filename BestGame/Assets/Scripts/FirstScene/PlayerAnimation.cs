@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
@@ -32,7 +33,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetOnIdleAnimation()
     {
-        if (Player.moveState == MoveState.Idle)
+        if (Player.moveState == MoveState.Idle && Player.attackState == AttackState.Passive)
         {
             _animatorController.Play("Idle");
         }
@@ -43,18 +44,42 @@ public class PlayerAnimation : MonoBehaviour
     {
         GetComponent<Player>().OnJumped += JumpAnimation;
         GetComponentInChildren<GroundCheck>().OnLanded += InstantiateJumpEffect;
+        GetComponent<PlayerCombat>().OnAttacked += AttackAnimation;
     }
 
     private void OnDisable()
     {
         GetComponent<Player>().OnJumped -= JumpAnimation;
         GetComponentInChildren<GroundCheck>().OnLanded -= InstantiateJumpEffect;
+        GetComponent<PlayerCombat>().OnAttacked -= AttackAnimation;
     }
 
     private void JumpAnimation()
     {
         _animatorController.Play("Jump");
         InstantiateJumpEffect();
+    }
+
+    private void AttackAnimation()
+    {
+        _animatorController.Play("Attack");
+        Player.attackState = AttackState.Active;
+        StartCoroutine(DisableAttack());
+    }
+
+    private IEnumerator DisableAttack()
+    {
+        AnimationClip[] clips = _animatorController.runtimeAnimatorController.animationClips;
+        float attackLength = 0;
+
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name == "PlayerAttack")
+                attackLength = clip.length;
+        }
+
+        yield return new WaitForSeconds(attackLength);
+        Player.attackState = AttackState.Passive;
     }
 
     private void InstantiateJumpEffect()

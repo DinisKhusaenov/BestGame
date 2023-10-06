@@ -2,13 +2,33 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _jumpEffect;
     [SerializeField] private GameObject _walkEffect;
 
     private Animator _animatorController;
+
+    private void OnEnable()
+    {
+        PlayerMovement.OnJumped += SetOnJumpAnimation;
+        PlayerMovement.OnWalked += SetOnMoveAnimation;
+        PlayerMovement.OnIdled += SetOnIdleAnimation;
+
+        GetComponentInChildren<GroundCheck>().OnLanded += InstantiateJumpEffect;
+        GetComponent<PlayerCombat>().OnAttacked += AttackAnimation;
+    }
+
+    private void OnDisable()
+    {
+        PlayerMovement.OnJumped -= SetOnJumpAnimation;
+        PlayerMovement.OnWalked -= SetOnMoveAnimation;
+        PlayerMovement.OnIdled -= SetOnIdleAnimation;
+
+        GetComponentInChildren<GroundCheck>().OnLanded -= InstantiateJumpEffect;
+        GetComponent<PlayerCombat>().OnAttacked -= AttackAnimation;
+    }
 
     private void Start()
     {
@@ -17,15 +37,12 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        SetOnMoveAnimation();
-        SetOnIdleAnimation();
-
         ActivateWalkingEffect();
     }
 
     private void SetOnMoveAnimation()
     {
-        if (Player.moveState == MoveState.Walk)
+        if (PlayerMovement.moveState == MoveState.Walk && PlayerCombat.attackState == AttackState.Passive)
         {
             _animatorController.Play("Walk");
         }
@@ -33,53 +50,25 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetOnIdleAnimation()
     {
-        if (Player.moveState == MoveState.Idle && Player.attackState == AttackState.Passive)
+        if (PlayerMovement.moveState == MoveState.Idle && PlayerCombat.attackState == AttackState.Passive)
         {
             _animatorController.Play("Idle");
         }
 
     }
 
-    private void OnEnable()
+    private void SetOnJumpAnimation()
     {
-        GetComponent<Player>().OnJumped += JumpAnimation;
-        GetComponentInChildren<GroundCheck>().OnLanded += InstantiateJumpEffect;
-        GetComponent<PlayerCombat>().OnAttacked += AttackAnimation;
-    }
+        if (PlayerCombat.attackState == AttackState.Passive)
+            _animatorController.Play("Jump");
 
-    private void OnDisable()
-    {
-        GetComponent<Player>().OnJumped -= JumpAnimation;
-        GetComponentInChildren<GroundCheck>().OnLanded -= InstantiateJumpEffect;
-        GetComponent<PlayerCombat>().OnAttacked -= AttackAnimation;
-    }
-
-    private void JumpAnimation()
-    {
-        _animatorController.Play("Jump");
         InstantiateJumpEffect();
     }
 
     private void AttackAnimation()
     {
         _animatorController.Play("Attack");
-        Player.attackState = AttackState.Active;
-        StartCoroutine(DisableAttack());
-    }
-
-    private IEnumerator DisableAttack()
-    {
-        AnimationClip[] clips = _animatorController.runtimeAnimatorController.animationClips;
-        float attackLength = 0;
-
-        foreach (AnimationClip clip in clips)
-        {
-            if (clip.name == "PlayerAttack")
-                attackLength = clip.length;
-        }
-
-        yield return new WaitForSeconds(attackLength);
-        Player.attackState = AttackState.Passive;
+        PlayerCombat.attackState = AttackState.Active;
     }
 
     private void InstantiateJumpEffect()
@@ -92,7 +81,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void ActivateWalkingEffect()
     {
-        if (Player.moveState == MoveState.Walk)
+        if (PlayerMovement.moveState == MoveState.Walk)
         {
             _walkEffect.SetActive(true);
         }

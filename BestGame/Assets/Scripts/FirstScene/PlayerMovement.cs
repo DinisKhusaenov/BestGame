@@ -1,28 +1,29 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _jumpHeight = 3f;
+    [SerializeField] private Button _leftBtn;
+    [SerializeField] private Button _rightBtn;
 
     public static MoveState moveState = MoveState.Idle;
-    public static AttackState attackState = AttackState.Passive;
 
     private Rigidbody2D _rigidbody2D;
+    private SpriteRenderer _spriteRenderer;
 
     private float _jumpForce;
-    private static int _hp = 3;
     private int _moveDirection = 0;
     private bool _isMoveBtnPressed = false;
 
-    public Action OnJumped;
-    
-    public void GetDamage()
-    {
-        if (_hp > 0)
-            _hp--;
-    }
+    public static Action OnJumped;
+    public static Action OnWalked;
+    public static Action OnIdled;
+
+    public bool IsMoveBtnPressed => _isMoveBtnPressed;
 
     public void OnJumpBtnClick()
     {
@@ -37,21 +38,19 @@ public class Player : MonoBehaviour
     public void OnLeftBtnDown()
     {
         _moveDirection = -1;
-        GetComponent<SpriteRenderer>().flipX = true;
+        _spriteRenderer.flipX = true;
         _isMoveBtnPressed = true;
 
-        if (moveState != MoveState.Jump)
-            moveState = MoveState.Walk;
+        SetOnWalkState();
     }
 
     public void OnRightBtnDown()
     {
         _moveDirection = 1;
-        GetComponent<SpriteRenderer>().flipX = false;
+        _spriteRenderer.flipX = false;
         _isMoveBtnPressed = true;
 
-        if (moveState != MoveState.Jump)
-            moveState = MoveState.Walk;
+        SetOnWalkState();
     }
 
     public void OnBtnUp()
@@ -59,14 +58,22 @@ public class Player : MonoBehaviour
         _moveDirection = 0;
         _isMoveBtnPressed = false;
 
-        if (moveState != MoveState.Jump)
+        if (moveState != MoveState.Jump && PlayerCombat.attackState != AttackState.Active)
+        {
             moveState = MoveState.Idle;
+            OnIdled?.Invoke();
+        }
+    }
+
+    private void Awake()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>(); 
+
     }
 
     private void Start()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-
         _jumpForce = Mathf.Sqrt(_jumpHeight * -2 * (Physics2D.gravity.y * _rigidbody2D.gravityScale));
     }
 
@@ -74,15 +81,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Move();
-        SetOnMoveState();
-    }
-
-    private void SetOnMoveState()
-    {
-        if (moveState != MoveState.Jump && _isMoveBtnPressed)
-        {
-            moveState = MoveState.Walk;
-        }
     }
 
     private void Move()
@@ -94,6 +92,15 @@ public class Player : MonoBehaviour
     {
         _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
+
+    private void SetOnWalkState()
+    {
+        if (moveState != MoveState.Jump && PlayerCombat.attackState != AttackState.Active)
+        {
+            moveState = MoveState.Walk;
+            OnWalked?.Invoke();
+        }
+    }
 }
 
 public enum MoveState
@@ -101,10 +108,4 @@ public enum MoveState
     Idle,
     Walk,
     Jump
-}
-
-public enum AttackState
-{
-    Active,
-    Passive
 }

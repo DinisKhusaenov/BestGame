@@ -3,21 +3,26 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement _player;
+
     public Action OnLanded;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Ground")
         {
-            Player.moveState = MoveState.Idle;
+            if (!_player.IsMoveBtnPressed)
+            {
+                PlayerMovement.moveState = MoveState.Idle;
+                PlayerMovement.OnIdled?.Invoke();
+            }
+            else
+            {
+                PlayerMovement.moveState = MoveState.Walk;
+                PlayerMovement.OnWalked?.Invoke();
+            }
+
             OnLanded?.Invoke();
         }
-            
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Ground")
-            Player.moveState = MoveState.Jump;
     }
 }

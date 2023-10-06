@@ -11,9 +11,10 @@ public class PlayerCombat : MonoBehaviour
     public static AttackState attackState = AttackState.Passive;
 
     private int _attackDamage = 3;
-    private float _attackRange = 2f;
+    private float _attackRange = 0.5f;
 
     public Action OnAttacked;
+    public Action OnAttackEnded;
     
     public void OnAttackBtnClick()
     {
@@ -36,6 +37,7 @@ public class PlayerCombat : MonoBehaviour
     {
         yield return new WaitForSeconds(_attackRange);
         attackState = AttackState.Passive;
+        OnAttackEnded?.Invoke();
     }
 
     private void OnDrawGizmosSelected()

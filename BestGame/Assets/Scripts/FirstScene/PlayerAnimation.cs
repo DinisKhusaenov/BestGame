@@ -18,6 +18,7 @@ public class PlayerAnimation : MonoBehaviour
 
         GetComponentInChildren<GroundCheck>().OnLanded += InstantiateJumpEffect;
         GetComponent<PlayerCombat>().OnAttacked += AttackAnimation;
+        GetComponent<PlayerCombat>().OnAttackEnded += AttackEnd;
     }
 
     private void OnDisable()
@@ -28,6 +29,7 @@ public class PlayerAnimation : MonoBehaviour
 
         GetComponentInChildren<GroundCheck>().OnLanded -= InstantiateJumpEffect;
         GetComponent<PlayerCombat>().OnAttacked -= AttackAnimation;
+        GetComponent<PlayerCombat>().OnAttackEnded -= AttackEnd;
     }
 
     private void Start()
@@ -55,6 +57,12 @@ public class PlayerAnimation : MonoBehaviour
             _animatorController.Play("Idle");
         }
 
+    }
+
+    private void AttackEnd()
+    {
+        SetOnIdleAnimation();
+        SetOnMoveAnimation();
     }
 
     private void SetOnJumpAnimation()

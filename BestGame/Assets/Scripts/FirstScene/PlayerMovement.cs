@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Singleton<PlayerMovement>
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _jumpHeight = 3f;
@@ -18,12 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private float _jumpForce;
     private int _moveDirection = 0;
     private bool _isMoveBtnPressed = false;
+    private Transform _playerPosition;
 
     public static Action OnJumped;
     public static Action OnWalked;
     public static Action OnIdled;
 
     public bool IsMoveBtnPressed => _isMoveBtnPressed;
+    public Transform PlayerPosition => _playerPosition;
 
     public void OnJumpBtnClick()
     {
@@ -68,7 +70,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>(); 
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerPosition = transform;
 
     }
 

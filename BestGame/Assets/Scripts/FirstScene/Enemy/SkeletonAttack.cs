@@ -46,7 +46,7 @@ public class SkeletonAttack : MonoBehaviour, IAttack
     {
         Collider2D player = Physics2D.OverlapCircle(_attackPoint.position, _attackRange, _playerLayer);
 
-        player.GetComponent<PlayerHealth>().TakeDamage(_attackDamage);
+        player.GetComponent<PlayerHealth>()?.TakeDamage(_attackDamage);
 
         _skeletonAttackState = AttackState.Active;
         _animatorController.SetBool("SkeletonAttack", true);

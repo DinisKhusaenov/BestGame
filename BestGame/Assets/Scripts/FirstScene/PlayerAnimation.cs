@@ -32,7 +32,7 @@ public class PlayerAnimation : MonoBehaviour
         GetComponent<PlayerCombat>().OnAttackEnded -= AttackEnd;
     }
 
-    private void Start()
+    private void Awake()
     {
         _animatorController = GetComponent<Animator>();
     }

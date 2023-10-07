@@ -4,7 +4,7 @@ public class PlayerHealth : MonoBehaviour
 {
     private int _hp = 3;
 
-    public void GetDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (damage > 0)
             _hp -= damage;
@@ -13,6 +13,8 @@ public class PlayerHealth : MonoBehaviour
         {
             Dead();
         }
+
+        Debug.Log(_hp);
     }
 
     private void Dead()

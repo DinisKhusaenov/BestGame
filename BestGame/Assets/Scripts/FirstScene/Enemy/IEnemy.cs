@@ -1,6 +1,5 @@
-using UnityEngine;
 
 public interface IEnemy
 {
-    public void EnemyAttack();
+    public void TakeDamage(int damage);
 }

@@ -1,87 +1,27 @@
+using System;
 using UnityEngine;
 
 public class Skeleton : MonoBehaviour, IEnemy
 {
-    [SerializeField] private float _speed;
+    private int _hp = 5;
 
-    private int _direction = 1;
-    private float _moveDistance = 5f;
-    private Transform _target;
-
-    private SpriteRenderer _spriteRenderer;
-
-    public void EnemyAttack()
+    public void TakeDamage(int damage)
     {
-        throw new System.NotImplementedException();
-    }
-
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private void Start()
-    {
-        _target = PlayerMovement.Instance.PlayerPosition;
-        
-    }
-
-    private void Update()
-    {
-        SkeletonMove();
-        MoveToPlayer();
-    }
-
-    private void SkeletonMove()
-    {
-        transform.Translate(_direction * _speed * Time.deltaTime, 0, 0);
-    }
-
-    private void MoveToPlayer()
-    {
-        if (CheckDistance(_target) <= _moveDistance)
+        if (damage > 0)
         {
-            if (_target.position.x < transform.position.x)
-            {
-                _direction = -1;
-                Flip();
-            }
-            else
-            {
-                _direction = 1;
-                Flip();
-            }
+            _hp -= damage;
         }
-    }
 
-    private void ChangeDirection()
-    {
-        _direction *= -1;
-        Flip();
-    }
-
-    private void Flip()
-    {
-        if (_direction == -1)
+        if (_hp <= 0)
         {
-            _spriteRenderer.flipX = true;
+            Dead();
         }
-        else
-        {
-            _spriteRenderer.flipX = false;
-        }
+
+        Debug.Log("enemy hp " + _hp);
     }
 
-    private float CheckDistance(Transform to)
+    private void Dead()
     {
-        return Vector2.Distance(transform.position, to.position);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out DirectionChanger directionChanger))
-        {
-            ChangeDirection();
-        }
+        Debug.Log("enemy dead");
     }
 }

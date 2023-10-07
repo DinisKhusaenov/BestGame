@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
-    [SerializeField] private float _atackRange;
+    [SerializeField] private float _attackRange;
     [SerializeField] private LayerMask _enemyLayer;
 
     public static AttackState attackState = AttackState.Passive;
 
     private int _attackDamage = 3;
-    private float _attackRange = 0.5f;
+    private float _attackSpeed = 0.5f;
 
     public Action OnAttacked;
     public Action OnAttackEnded;
@@ -26,16 +26,19 @@ public class PlayerCombat : MonoBehaviour
     {
         OnAttacked?.Invoke();
 
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _atackRange, _enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayer);
 
-        // Damage enemies
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            enemy.GetComponent<IEnemy>().TakeDamage(_attackDamage);
+        }
+
         StartCoroutine(DisableAttack());
-        Debug.Log("Attack");
     }
 
     private IEnumerator DisableAttack()
     {
-        yield return new WaitForSeconds(_attackRange);
+        yield return new WaitForSeconds(_attackSpeed);
         attackState = AttackState.Passive;
         OnAttackEnded?.Invoke();
     }
@@ -45,7 +48,7 @@ public class PlayerCombat : MonoBehaviour
         if (_attackPoint == null)
             return;
 
-        Gizmos.DrawWireSphere(_attackPoint.position, _atackRange);
+        Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
 }
 

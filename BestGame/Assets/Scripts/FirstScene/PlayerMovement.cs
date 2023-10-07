@@ -7,8 +7,6 @@ public class PlayerMovement : Singleton<PlayerMovement>
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _jumpHeight = 3f;
-    [SerializeField] private Button _leftBtn;
-    [SerializeField] private Button _rightBtn;
 
     public static MoveState moveState = MoveState.Idle;
 

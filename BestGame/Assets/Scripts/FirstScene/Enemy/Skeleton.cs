@@ -1,8 +1,11 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class Skeleton : MonoBehaviour, IEnemy
 {
+    [SerializeField] private float _deathTime = 2f;
+    private Animator _animatorController;
+
     private int _hp = 5;
 
     public void TakeDamage(int damage)
@@ -14,14 +17,28 @@ public class Skeleton : MonoBehaviour, IEnemy
 
         if (_hp <= 0)
         {
-            Dead();
+            SkeletonDeath();
         }
-
-        Debug.Log("enemy hp " + _hp);
     }
 
-    private void Dead()
+    private void Awake()
     {
-        Debug.Log("enemy dead");
+        _animatorController = GetComponent<Animator>();
+    }
+
+    private void SkeletonDeath()
+    {
+        GetComponent<SkeletonAttack>().enabled = false;
+        GetComponent<SkeletonMovement>().enabled = false;
+
+        _animatorController.SetTrigger("SkeletonDeath");
+        StartCoroutine(SkeletonDestroy());
+
+    }
+
+    private IEnumerator SkeletonDestroy()
+    {
+        yield return new WaitForSeconds(_deathTime);
+        Destroy(gameObject);
     }
 }

@@ -10,7 +10,7 @@ public class SkeletonAttack : MonoBehaviour, IAttack
 
     private int _attackDamage = 1;
     private float _attackDistance = 1f;
-    private float _attackSpeed = 0.5f;
+    private float _attackSpeed = 1f;
 
     private SkeletonMovement _skeletonMovement;
     private Animator _animatorController;
@@ -50,6 +50,8 @@ public class SkeletonAttack : MonoBehaviour, IAttack
 
         _skeletonAttackState = AttackState.Active;
         _animatorController.SetBool("SkeletonAttack", true);
+
+        Debug.Log("Attack");
 
         yield return new WaitForSeconds(_attackSpeed);
         _skeletonAttackState = AttackState.Passive;

@@ -13,8 +13,6 @@ public class PlayerHealth : MonoBehaviour
         {
             Dead();
         }
-
-        Debug.Log(_hp);
     }
 
     private void Dead()

@@ -51,8 +51,6 @@ public class SkeletonAttack : MonoBehaviour, IAttack
         _skeletonAttackState = AttackState.Active;
         _animatorController.SetBool("SkeletonAttack", true);
 
-        Debug.Log("Attack");
-
         yield return new WaitForSeconds(_attackSpeed);
         _skeletonAttackState = AttackState.Passive;
 

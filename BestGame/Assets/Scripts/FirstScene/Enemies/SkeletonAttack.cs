@@ -7,9 +7,10 @@ public class SkeletonAttack : MonoBehaviour, IAttack
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _attackRange;
     [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] private string _attackAnimationName = "SkeletonAttack";
+    [SerializeField] private float _attackDistance = 1f;
+    [SerializeField] private int _attackDamage = 1;
 
-    private int _attackDamage = 1;
-    private float _attackDistance = 1f;
     private float _attackSpeed = 1f;
 
     private SkeletonMovement _skeletonMovement;
@@ -46,15 +47,15 @@ public class SkeletonAttack : MonoBehaviour, IAttack
     {
         Collider2D player = Physics2D.OverlapCircle(_attackPoint.position, _attackRange, _playerLayer);
 
-        player.GetComponent<PlayerHealth>()?.TakeDamage(_attackDamage);
+        player?.GetComponent<PlayerHealth>()?.TakeDamage(_attackDamage);
 
         _skeletonAttackState = AttackState.Active;
-        _animatorController.SetBool("SkeletonAttack", true);
+        _animatorController.SetBool(_attackAnimationName, true);
 
         yield return new WaitForSeconds(_attackSpeed);
         _skeletonAttackState = AttackState.Passive;
 
-        _animatorController.SetBool("SkeletonAttack", false);
+        _animatorController.SetBool(_attackAnimationName, false);
     }
 
     private void OnDrawGizmosSelected()

@@ -25,6 +25,7 @@ public class PlayerCombat : MonoBehaviour
     private void Attack()
     {
         OnAttacked?.Invoke();
+        attackState = AttackState.Active;
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayer);
 

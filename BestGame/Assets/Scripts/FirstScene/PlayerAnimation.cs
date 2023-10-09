@@ -75,7 +75,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetOnAttackAnimation()
     {
-        _animatorController.Play("Attack");
+        _animatorController.SetTrigger("PlayerAttack");
         PlayerCombat.attackState = AttackState.Active;
     }
 

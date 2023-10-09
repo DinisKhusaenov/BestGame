@@ -27,6 +27,14 @@ public class JumpPlatform : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+        {
+            _isJumping = false;
+        }
+    }
+
     private void Jump()
     {
         if (_isJumping)

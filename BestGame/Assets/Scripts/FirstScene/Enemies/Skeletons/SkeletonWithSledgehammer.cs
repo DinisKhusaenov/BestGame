@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class SkeletonWithSword : MonoBehaviour, IEnemy
+public class SkeletonWithSledgehammer : MonoBehaviour, IEnemy
 {
     [SerializeField] private float _deathTime = 2f;
 
-    private Animator _animatorController;
     private int _hp = 5;
+    private Animator _animatorController;
 
     public void TakeDamage(int damage)
     {
@@ -30,12 +30,11 @@ public class SkeletonWithSword : MonoBehaviour, IEnemy
     {
         GetComponent<SkeletonAttack>().enabled = false;
         GetComponent<SkeletonMovement>().enabled = false;
-        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
-        _animatorController.SetTrigger("SkeletonDeath");
+        _animatorController.SetTrigger("SkeletonTwoDeath");
         StartCoroutine(SkeletonDestroy());
-
     }
 
     private IEnumerator SkeletonDestroy()

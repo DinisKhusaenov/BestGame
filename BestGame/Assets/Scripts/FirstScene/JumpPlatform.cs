@@ -18,18 +18,18 @@ public class JumpPlatform : MonoBehaviour
         PlayerMovement.OnJumped -= Jump;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+        if (collision.TryGetComponent(out PlayerMovement playerMovement))
         {
             _isJumping = true;
             _player = playerMovement.gameObject;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+        if (collision.TryGetComponent(out PlayerMovement playerMovement))
         {
             _isJumping = false;
         }

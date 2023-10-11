@@ -5,9 +5,14 @@ public class Heart : MonoBehaviour
 {
     private Animator _animatorController;
 
-    public void ChangeHealthIcon()
+    public void HeartDistructionAnimation()
     {
         _animatorController.SetTrigger("HeartDistruction");
+    }
+
+    public void HeartRevivalAnimation()
+    {
+        _animatorController.SetTrigger("HeartRevival");
     }
 
     private void Awake()

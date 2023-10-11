@@ -45,17 +45,18 @@ public class SkeletonAttack : MonoBehaviour, IAttack
 
     private IEnumerator Attack()
     {
+        _skeletonAttackState = AttackState.Active;
+        _animatorController.SetBool(_attackAnimationName, false);
+        yield return new WaitForSeconds(_attackSpeed/2);
+
         Collider2D player = Physics2D.OverlapCircle(_attackPoint.position, _attackRange, _playerLayer);
 
-        player?.GetComponent<PlayerHealth>()?.TakeDamage(_attackDamage);
+        player?.GetComponent<PlayerHealth>().TakeDamage(_attackDamage);
 
-        _skeletonAttackState = AttackState.Active;
         _animatorController.SetBool(_attackAnimationName, true);
+        yield return new WaitForSeconds(_attackSpeed/2);
 
-        yield return new WaitForSeconds(_attackSpeed);
         _skeletonAttackState = AttackState.Passive;
-
-        _animatorController.SetBool(_attackAnimationName, false);
     }
 
     private void OnDrawGizmosSelected()

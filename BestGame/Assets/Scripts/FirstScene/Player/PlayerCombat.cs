@@ -11,7 +11,7 @@ public class PlayerCombat : MonoBehaviour
     public static AttackState attackState = AttackState.Passive;
 
     private int _attackDamage = 3;
-    private float _attackSpeed = 0.5f;
+    private float _attackSpeed = 1f;
 
     public Action OnAttacked;
     public Action OnAttackEnded;

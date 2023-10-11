@@ -7,6 +7,7 @@ public class DeathPlatform : MonoBehaviour
 
     private int _damage = 1;
     private static bool _isActive = true;
+    private static bool _isGone = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +15,15 @@ public class DeathPlatform : MonoBehaviour
         {
             StartCoroutine(PlayerDamage(playerHealth));
             _isActive = false;
-            Debug.Log("-hp");
+            _isGone = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out PlayerHealth playerHealth))
+        {
+            _isGone = true;
         }
     }
 
@@ -24,5 +33,14 @@ public class DeathPlatform : MonoBehaviour
 
         yield return new WaitForSeconds(_timeBetweenDamage);
         _isActive = true;
+
+        if (!_isGone)
+        {
+            playerHealth.TakeDamage(_damage);
+            yield return new WaitForSeconds(_timeBetweenDamage);
+
+            if (!_isGone)
+                playerHealth.TakeDamage(_damage);
+        }
     }
 }

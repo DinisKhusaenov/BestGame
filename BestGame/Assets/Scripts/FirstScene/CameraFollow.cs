@@ -9,13 +9,13 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        _targetPositionWithCamera = new Vector3(_target.position.x, _target.position.y + 1.5f, transform.position.z);
+        _targetPositionWithCamera = new Vector3(_target.position.x, _target.position.y + 1.2f, transform.position.z);
         transform.position = _targetPositionWithCamera;
     }
 
     private void Update()
     {
-        _targetPositionWithCamera = new Vector3(_target.position.x, _target.position.y + 1.5f, transform.position.z);
+        _targetPositionWithCamera = new Vector3(_target.position.x, _target.position.y + 1.2f, transform.position.z);
 
         transform.position = Vector3.Lerp(transform.position, _targetPositionWithCamera, _moveSpeed * Time.deltaTime);
     }

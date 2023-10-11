@@ -7,26 +7,41 @@ public class HealthChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerHealth.OnDamaged += HealthChange;
+        _playerHealth.OnDamaged += HealthDestruction;
+        _playerHealth.OnHeartRevivaled += HealthRevival;
     }
 
     private void OnDisable()
     {
-        _playerHealth.OnDamaged -= HealthChange;
+        _playerHealth.OnDamaged -= HealthDestruction;
+        _playerHealth.OnHeartRevivaled -= HealthRevival;
     }
 
-    private void HealthChange()
+    private void HealthDestruction()
     {
         switch (_playerHealth.HP)
         {
             case 2:
-                _heartThree.ChangeHealthIcon();
+                _heartThree.HeartDistructionAnimation();
                 break;
             case 1:
-                _heartTwo.ChangeHealthIcon();
+                _heartTwo.HeartDistructionAnimation();
                 break;
             case 0:
-                _heartOne.ChangeHealthIcon();
+                _heartOne.HeartDistructionAnimation();
+                break;
+        }
+    }
+
+    private void HealthRevival()
+    {
+        switch (_playerHealth.HP)
+        {
+            case 3:
+                _heartThree.HeartRevivalAnimation();
+                break;
+            case 2:
+                _heartTwo.HeartRevivalAnimation();
                 break;
         }
     }

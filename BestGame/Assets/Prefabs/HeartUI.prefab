@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 493995145091093776}
   - component: {fileID: 4933262354533504754}
   m_Layer: 5
-  m_Name: HeartOne
+  m_Name: HeartUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackPoint: {fileID: 3594815167943583748}
-  _attackRange: 1.32
+  _attackRange: 1.53
   _playerLayer:
     serializedVersion: 2
     m_Bits: 128

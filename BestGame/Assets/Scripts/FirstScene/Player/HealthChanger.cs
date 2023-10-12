@@ -26,9 +26,21 @@ public class HealthChanger : MonoBehaviour
                 break;
             case 1:
                 _heartTwo.HeartDistructionAnimation();
+                if (_heartThree.IsActive)
+                {
+                    _heartThree.HeartDistructionAnimation();
+                }
                 break;
             case 0:
-                _heartOne.HeartDistructionAnimation();
+                _heartOne.HeartDistructionAnimation(); 
+                if (_heartThree.IsActive)
+                {
+                    _heartThree.HeartDistructionAnimation();
+                }
+                if (_heartTwo.IsActive)
+                {
+                    _heartThree.HeartDistructionAnimation();
+                }
                 break;
         }
     }

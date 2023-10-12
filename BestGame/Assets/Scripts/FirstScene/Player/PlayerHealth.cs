@@ -16,7 +16,6 @@ public class PlayerHealth : MonoBehaviour
         {
             _hp -= damage;
             OnDamaged?.Invoke();
-            Debug.Log("-hp");
         }
 
         if (_hp <= 0)

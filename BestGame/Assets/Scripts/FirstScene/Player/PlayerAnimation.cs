@@ -7,8 +7,11 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _jumpEffect;
     [SerializeField] private GameObject _walkEffect;
+    [SerializeField] private GameObject _damageEffect;
+    [SerializeField] private readonly Color _normalColor, _damageColor;
 
     private Animator _animatorController;
+    private SpriteRenderer _spriteRenderer;
 
     private void OnEnable()
     {
@@ -16,9 +19,10 @@ public class PlayerAnimation : MonoBehaviour
         PlayerMovement.OnWalked += SetOnMoveAnimation;
         PlayerMovement.OnIdled += SetOnIdleAnimation;
 
-        GetComponentInChildren<GroundCheck>().OnLanded += InstantiateJumpEffect;
+        GetComponentInChildren<GroundCheck>().OnLanded += CreationJumpEffect;
         GetComponent<PlayerCombat>().OnAttacked += SetOnAttackAnimation;
         GetComponent<PlayerCombat>().OnAttackEnded += AttackEnd;
+        GetComponent<PlayerHealth>().OnDamaged += GetDamage;
     }
 
     private void OnDisable()
@@ -27,14 +31,16 @@ public class PlayerAnimation : MonoBehaviour
         PlayerMovement.OnWalked -= SetOnMoveAnimation;
         PlayerMovement.OnIdled -= SetOnIdleAnimation;
 
-        GetComponentInChildren<GroundCheck>().OnLanded -= InstantiateJumpEffect;
+        GetComponentInChildren<GroundCheck>().OnLanded -= CreationJumpEffect;
         GetComponent<PlayerCombat>().OnAttacked -= SetOnAttackAnimation;
         GetComponent<PlayerCombat>().OnAttackEnded -= AttackEnd;
+        GetComponent<PlayerHealth>().OnDamaged -= GetDamage;
     }
 
     private void Awake()
     {
         _animatorController = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -70,7 +76,7 @@ public class PlayerAnimation : MonoBehaviour
         if (PlayerCombat.attackState == AttackState.Passive)
             _animatorController.Play("Jump");
 
-        InstantiateJumpEffect();
+        CreationJumpEffect();
     }
 
     private void SetOnAttackAnimation()
@@ -79,7 +85,28 @@ public class PlayerAnimation : MonoBehaviour
         PlayerCombat.attackState = AttackState.Active;
     }
 
-    private void InstantiateJumpEffect()
+    private void GetDamage()
+    {
+        CreationDamageEffect();
+        StartCoroutine(Flickering());
+    }
+
+    private void CreationDamageEffect()
+    {
+        var newDamage = Instantiate(_damageEffect);
+        newDamage.transform.position = transform.position;
+
+        Destroy(newDamage, 1f);
+    }
+
+    private IEnumerator Flickering()
+    {
+        _spriteRenderer.color = _damageColor;
+        yield return new WaitForSeconds(0.5f);
+        _spriteRenderer.color = _normalColor;
+    }
+
+    private void CreationJumpEffect()
     {
         var newEffect = Instantiate(_jumpEffect);
         newEffect.transform.position = new Vector3(transform.position.x, transform.position.y - 0.15f, 0);

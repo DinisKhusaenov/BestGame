@@ -11,7 +11,7 @@ public class SkeletonAttack : MonoBehaviour, IAttack
     [SerializeField] private float _attackDistance = 1f;
     [SerializeField] private int _attackDamage = 1;
 
-    private float _attackSpeed = 1f;
+    private float _attackSpeed = 1.5f;
 
     private SkeletonMovement _skeletonMovement;
     private Animator _animatorController;
@@ -46,14 +46,13 @@ public class SkeletonAttack : MonoBehaviour, IAttack
     private IEnumerator Attack()
     {
         _skeletonAttackState = AttackState.Active;
-        _animatorController.SetBool(_attackAnimationName, false);
         yield return new WaitForSeconds(_attackSpeed/2);
 
         Collider2D player = Physics2D.OverlapCircle(_attackPoint.position, _attackRange, _playerLayer);
 
         player?.GetComponent<PlayerHealth>().TakeDamage(_attackDamage);
 
-        _animatorController.SetBool(_attackAnimationName, true);
+        _animatorController.SetTrigger(_attackAnimationName);
         yield return new WaitForSeconds(_attackSpeed/2);
 
         _skeletonAttackState = AttackState.Passive;

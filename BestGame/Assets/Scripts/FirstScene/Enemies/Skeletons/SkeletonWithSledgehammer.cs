@@ -4,6 +4,7 @@ using UnityEngine;
 public class SkeletonWithSledgehammer : MonoBehaviour, IEnemy
 {
     [SerializeField] private float _deathTime = 2f;
+    [SerializeField] private GameObject _damageEffect;
 
     private int _hp = 5;
     private Animator _animatorController;
@@ -13,6 +14,7 @@ public class SkeletonWithSledgehammer : MonoBehaviour, IEnemy
         if (damage > 0)
         {
             _hp -= damage;
+            CreationDamageEffect();
         }
 
         if (_hp <= 0)
@@ -41,5 +43,13 @@ public class SkeletonWithSledgehammer : MonoBehaviour, IEnemy
     {
         yield return new WaitForSeconds(_deathTime);
         Destroy(gameObject);
+    }
+
+    private void CreationDamageEffect()
+    {
+        var newDamage = Instantiate(_damageEffect);
+        newDamage.transform.position = transform.position;
+
+        Destroy(newDamage, 1f);
     }
 }

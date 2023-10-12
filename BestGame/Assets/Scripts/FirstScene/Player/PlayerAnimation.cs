@@ -8,7 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private ParticleSystem _jumpEffect;
     [SerializeField] private GameObject _walkEffect;
     [SerializeField] private GameObject _damageEffect;
-    [SerializeField] private readonly Color _normalColor, _damageColor;
+    [SerializeField] private Color _normalColor, _damageColor;
 
     private Animator _animatorController;
     private SpriteRenderer _spriteRenderer;

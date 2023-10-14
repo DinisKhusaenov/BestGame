@@ -1,11 +1,17 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Fireball : MonoBehaviour, IMovable
 {
     [SerializeField] private float _speed = 5f;
 
-    private int _attackDamage;
+    private int _attackDamage = 1;
     private int _direction;
+    private float _destroyTime = 0.6f;
+
+    private Animator _animator;
 
     public int AttackDamage
     {
@@ -17,6 +23,23 @@ public class Fireball : MonoBehaviour, IMovable
     {
         get { return _direction; }
         set { _direction = value; }
+    }
+
+    public IEnumerator FireballDestroy()
+    {
+        _animator?.SetTrigger("FireballEnd");
+        yield return new WaitForSeconds(_destroyTime);
+        Destroy(gameObject);
+    }
+
+    public void Move()
+    {
+        transform.Translate(_direction * _speed * Time.deltaTime, 0, 0);
+    }
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -31,13 +54,23 @@ public class Fireball : MonoBehaviour, IMovable
         }
     }
 
-    public void Move()
-    {
-        transform.Translate(_direction * _speed * Time.deltaTime, 0, 0);
-    }
-
     private void Update()
     {
         Move();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out PlayerHealth player))
+        {
+            PlayerAttack(player);
+        }
+    }
+
+    private void PlayerAttack(PlayerHealth player)
+    {
+        player.TakeDamage(_attackDamage);
+        StartCoroutine(FireballDestroy());
+        _speed = 0;
     }
 }

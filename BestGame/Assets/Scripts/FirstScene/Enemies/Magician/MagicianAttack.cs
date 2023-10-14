@@ -8,7 +8,7 @@ public class MagicianAttack : MonoBehaviour, IAttack
     [SerializeField] private Fireball _fireballPrefab;
 
     private int _attackDamage = 1;
-    private float _attackSpeed = 2f;
+    private float _attackSpeed = 3f;
     private AttackState _attackState = AttackState.Passive;
     private int _direction;
     private readonly float _fireballSpawnDistance = 0.7f;
@@ -16,6 +16,7 @@ public class MagicianAttack : MonoBehaviour, IAttack
     private Transform _target;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
+
     public void EnemyAttack()
     {
         if (GetDistanceToTarget(_target) <= _attackDistance)
@@ -85,6 +86,14 @@ public class MagicianAttack : MonoBehaviour, IAttack
         else
             newFireball.transform.position = new Vector3(transform.position.x - _fireballSpawnDistance, transform.position.y, 0);
 
-        Destroy(newFireball.gameObject, 3f);
+        StartCoroutine(FireballDestruction(newFireball));
+    }
+
+    private IEnumerator FireballDestruction(Fireball fireball)
+    {
+        yield return new WaitForSeconds(3f);
+
+        if (fireball != null)
+            StartCoroutine(fireball.FireballDestroy());
     }
 }

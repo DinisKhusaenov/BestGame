@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2370589959046015020}
   - component: {fileID: 7787862368172885940}
   - component: {fileID: 5276615768524134239}
+  - component: {fileID: 6887899202549572209}
   m_Layer: 6
   m_Name: Magician
   m_TagString: Ground
@@ -170,3 +171,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackDistance: 15
   _fireballPrefab: {fileID: 2545816858278713755, guid: 7ddc26b1d6aa25b44a46f28360d6e2cb, type: 3}
+--- !u!114 &6887899202549572209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2370589959046015017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937fbc9615ceff44e8ff58d0a2b2ab0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deathTime: 0.6
+  _damageEffect: {fileID: 1332507698689381199, guid: ec1573a9057337542af3cfd83ad97286, type: 3}

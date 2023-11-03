@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthChanger : MonoBehaviour
+public class HealthView : MonoBehaviour
 {
     [SerializeField] private Heart _heartOne, _heartTwo, _heartThree;
     [SerializeField] private PlayerHealth _playerHealth;

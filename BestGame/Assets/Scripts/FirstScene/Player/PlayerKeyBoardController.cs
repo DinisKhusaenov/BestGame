@@ -9,6 +9,7 @@ public class PlayerKeyBoardController : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
     }
 
+    // Only for test
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.D))

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerInputController))]
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
@@ -13,10 +14,28 @@ public class PlayerCombat : MonoBehaviour
     private int _attackDamage = 3;
     private float _attackSpeed = 1f;
 
+    private PlayerInputController _playerInput;
+
     public Action OnAttacked;
     public Action OnAttackEnded;
-    
-    public void OnAttackBtnClick()
+
+    private void Awake()
+    {
+        _playerInput = GetComponent<PlayerInputController>();
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.OnAttackBtnClicked += PlayerAttack;
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.OnAttackBtnClicked -= PlayerAttack;
+    }
+
+
+    private void PlayerAttack()
     {
         if (attackState == AttackState.Passive)
             Attack();

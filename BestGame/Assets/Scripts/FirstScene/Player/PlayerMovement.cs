@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerInputController))]
 public class PlayerMovement : Singleton<PlayerMovement>
 {
     [SerializeField] private float _moveSpeed = 5f;
@@ -12,6 +12,7 @@ public class PlayerMovement : Singleton<PlayerMovement>
 
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
+    private PlayerInputController _playerInput;
 
     private float _jumpForce;
     private int _moveDirection = 0;
@@ -25,52 +26,29 @@ public class PlayerMovement : Singleton<PlayerMovement>
     public bool IsMoveBtnPressed => _isMoveBtnPressed;
     public Transform PlayerPosition => _playerPosition;
 
-    public void OnJumpBtnClick()
-    {
-        if (moveState != MoveState.Jump)
-        {
-            Jump();
-            OnJumped?.Invoke();
-            moveState = MoveState.Jump;
-        }
-    }
-
-    public void OnLeftBtnDown()
-    {
-        _moveDirection = -1;
-        _spriteRenderer.flipX = true;
-        _isMoveBtnPressed = true;
-
-        SetOnWalkState();
-    }
-
-    public void OnRightBtnDown()
-    {
-        _moveDirection = 1;
-        _spriteRenderer.flipX = false;
-        _isMoveBtnPressed = true;
-
-        SetOnWalkState();
-    }
-
-    public void OnBtnUp()
-    {
-        _moveDirection = 0;
-        _isMoveBtnPressed = false;
-
-        if (moveState != MoveState.Jump && PlayerCombat.attackState != AttackState.Active)
-        {
-            moveState = MoveState.Idle;
-            OnIdled?.Invoke();
-        }
-    }
-
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerInput = GetComponent<PlayerInputController>();
         _playerPosition = transform;
 
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.OnLeftBtnPressed += MoveLeft;
+        _playerInput.OnRightBtnPressed += MoveRight;
+        _playerInput.OnBtnUp += StayPut;
+        _playerInput.OnJumpBtnClicked += PlayerJump;
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.OnLeftBtnPressed -= MoveLeft;
+        _playerInput.OnRightBtnPressed -= MoveRight;
+        _playerInput.OnBtnUp -= StayPut;
+        _playerInput.OnJumpBtnClicked -= PlayerJump;
     }
 
     private void Start()
@@ -82,6 +60,46 @@ public class PlayerMovement : Singleton<PlayerMovement>
     private void Update()
     {
         Move();
+    }
+
+    private void MoveLeft()
+    {
+        _moveDirection = -1;
+        _spriteRenderer.flipX = true;
+        _isMoveBtnPressed = true;
+
+        SetOnWalkState();
+    }
+
+    private void MoveRight()
+    {
+        _moveDirection = 1;
+        _spriteRenderer.flipX = false;
+        _isMoveBtnPressed = true;
+
+        SetOnWalkState();
+    }
+
+    private void StayPut()
+    {
+        _moveDirection = 0;
+        _isMoveBtnPressed = false;
+
+        if (moveState != MoveState.Jump && PlayerCombat.attackState != AttackState.Active)
+        {
+            moveState = MoveState.Idle;
+            OnIdled?.Invoke();
+        }
+    }
+
+    private void PlayerJump()
+    {
+        if (moveState != MoveState.Jump)
+        {
+            Jump();
+            OnJumped?.Invoke();
+            moveState = MoveState.Jump;
+        }
     }
 
     private void Move()

@@ -31,17 +31,19 @@ public class HealthView : MonoBehaviour
                     _heartThree.HeartDistructionAnimation();
                 }
                 break;
-            case 0:
-                _heartOne.HeartDistructionAnimation(); 
-                if (_heartThree.IsActive)
-                {
-                    _heartThree.HeartDistructionAnimation();
-                }
-                if (_heartTwo.IsActive)
-                {
-                    _heartThree.HeartDistructionAnimation();
-                }
-                break;
+        }
+
+        if (_playerHealth.HP <= 0)
+        {
+            _heartOne.HeartDistructionAnimation();
+            if (_heartThree.IsActive)
+            {
+                _heartThree.HeartDistructionAnimation();
+            }
+            if (_heartTwo.IsActive)
+            {
+                _heartThree.HeartDistructionAnimation();
+            }
         }
     }
 

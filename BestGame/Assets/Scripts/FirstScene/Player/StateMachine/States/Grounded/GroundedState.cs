@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public abstract class GroundedState : MovementState
@@ -7,8 +6,7 @@ public abstract class GroundedState : MovementState
     private readonly GroundChecker _groundChecker;
 
     protected GroundedState(IStateSwitcher stateSwitcher, StateMachineData data, Player player) : base(stateSwitcher, data, player)
-    {
-    }
+        => _groundChecker = player.GroundChecker;
 
     public override void Enter()
     {

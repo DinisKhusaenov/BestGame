@@ -15,15 +15,18 @@ public class Player : MonoBehaviour
     public PlayerConfig Config => _config;
     public CharacterController Controller => _characterController;
 
+    private void Awake()
+    {
+        _playerInput = new PlayerInput();
+        _stateMachine = new PlayerStateMachine(this);
+        _characterController = GetComponent<CharacterController>();
+    }
+
     [Inject]
     public void Construct(GroundChecker groundChecker, PlayerConfig config)
     {
         _groundChecker = groundChecker;
         _config = config;
-
-        _playerInput = new PlayerInput();
-        _stateMachine = new PlayerStateMachine(this);
-        _characterController = GetComponent<CharacterController>();
     }
 
     private void Update()

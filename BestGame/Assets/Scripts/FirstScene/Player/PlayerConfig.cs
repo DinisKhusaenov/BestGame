@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerConfig", menuName = "Configs/CharacterConfig")]
+[CreateAssetMenu(fileName = "PlayerConfig", menuName = "Configs/PlayerConfig")]
 public class PlayerConfig : ScriptableObject
 {
     [SerializeField] private AirbornStateConfig _airbornStateConfig;

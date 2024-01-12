@@ -12,7 +12,10 @@ public class PlayerStateMachine : IStateSwitcher
 
         _states = new List<IState>()
         {
-
+            new IdlingState(this, data, player),
+            new RunningState(this, data, player),
+            new FallingState(this, data, player),
+            new JumpingState(this, data, player)
         };
 
         _currentState = _states[0];

@@ -25,11 +25,6 @@ public class EnemyMovement : MonoBehaviour, IMovable
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-        _target = PlayerMovement.Instance.PlayerPosition;
-    }
-
     private void Update()
     {
         Move();

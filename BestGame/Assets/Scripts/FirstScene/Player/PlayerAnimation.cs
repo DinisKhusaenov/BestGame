@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovement))]
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _jumpEffect;
@@ -13,62 +12,10 @@ public class PlayerAnimation : MonoBehaviour
     private Animator _animatorController;
     private SpriteRenderer _spriteRenderer;
 
-    private void OnEnable()
-    {
-        PlayerMovement.OnJumped += SetOnJumpAnimation;
-        PlayerMovement.OnWalked += SetOnMoveAnimation;
-        PlayerMovement.OnIdled += SetOnIdleAnimation;
-
-        GetComponentInChildren<GroundCheck>().OnLanded += CreationJumpEffect;
-        GetComponent<PlayerCombat>().OnAttacked += SetOnAttackAnimation;
-        GetComponent<PlayerCombat>().OnAttackEnded += AttackEnd;
-        GetComponent<PlayerHealth>().OnDamaged += GetDamage;
-    }
-
-    private void OnDisable()
-    {
-        PlayerMovement.OnJumped -= SetOnJumpAnimation;
-        PlayerMovement.OnWalked -= SetOnMoveAnimation;
-        PlayerMovement.OnIdled -= SetOnIdleAnimation;
-
-        GetComponentInChildren<GroundCheck>().OnLanded -= CreationJumpEffect;
-        GetComponent<PlayerCombat>().OnAttacked -= SetOnAttackAnimation;
-        GetComponent<PlayerCombat>().OnAttackEnded -= AttackEnd;
-        GetComponent<PlayerHealth>().OnDamaged -= GetDamage;
-    }
-
     private void Awake()
     {
         _animatorController = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private void Update()
-    {
-        ActivateWalkingEffect();
-    }
-
-    private void SetOnMoveAnimation()
-    {
-        if (PlayerMovement.moveState == MoveState.Walk && PlayerCombat.attackState == AttackState.Passive)
-        {
-            _animatorController.Play("Walk");
-        }
-    }
-
-    private void SetOnIdleAnimation()
-    {
-        if (PlayerMovement.moveState == MoveState.Idle && PlayerCombat.attackState == AttackState.Passive)
-        {
-            _animatorController.Play("Idle");
-        }
-
-    }
-
-    private void AttackEnd()
-    {
-        SetOnIdleAnimation();
-        SetOnMoveAnimation();
     }
 
     private void SetOnJumpAnimation()
@@ -112,17 +59,5 @@ public class PlayerAnimation : MonoBehaviour
         newEffect.transform.position = new Vector3(transform.position.x, transform.position.y - 0.15f, 0);
 
         Destroy(newEffect.gameObject, 3f);
-    }
-
-    private void ActivateWalkingEffect()
-    {
-        if (PlayerMovement.moveState == MoveState.Walk)
-        {
-            _walkEffect.SetActive(true);
-        }
-        else
-        {
-            _walkEffect.SetActive(false);
-        }
     }
 }

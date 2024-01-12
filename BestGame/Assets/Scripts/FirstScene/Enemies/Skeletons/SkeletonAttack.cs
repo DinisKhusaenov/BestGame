@@ -33,11 +33,6 @@ public class SkeletonAttack : MonoBehaviour, IAttack
         _animatorController = GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        _target = PlayerMovement.Instance.PlayerPosition;
-    }
-
     private void Update()
     {
         EnemyAttack();

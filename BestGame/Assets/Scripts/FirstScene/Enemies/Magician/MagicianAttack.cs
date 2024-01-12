@@ -34,11 +34,6 @@ public class MagicianAttack : MonoBehaviour, IAttack
         _animator = GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        _target = PlayerMovement.Instance.PlayerPosition;
-    }
-
     private void Update()
     {
         EnemyAttack();

@@ -23,7 +23,7 @@ public abstract class GroundedState : MovementState
         base.Update();
 
         if (_groundChecker.IsTouches == false)
-            StateSwitcher.StateSwitch<FallingState>();
+            StateSwitcher.SwitchState<FallingState>();
     }
 
     protected override void AddInputActionsCallbacks()
@@ -40,5 +40,5 @@ public abstract class GroundedState : MovementState
         Input.Movement.Jump.started -= OnJumpButtonPressed;
     }
 
-    private void OnJumpButtonPressed(InputAction.CallbackContext obj) => StateSwitcher.StateSwitch<JumpingState>();
+    private void OnJumpButtonPressed(InputAction.CallbackContext obj) => StateSwitcher.SwitchState<JumpingState>();
 }

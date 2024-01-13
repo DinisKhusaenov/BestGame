@@ -4,18 +4,13 @@ using Zenject;
 public class PlayerInstaller : MonoInstaller
 {
     [SerializeField] private PlayerConfig _playerConfig;
-    [SerializeField] private GroundChecker _groundChecker;
+    [SerializeField] private Player _prefab;
+    [SerializeField] private Transform _spawnPosition;
 
     public override void InstallBindings()
     {
         BindConfig();
-        BindGroundChecker();
         BindPlayer();
-    }
-
-    private void BindGroundChecker()
-    {
-        Container.Bind<GroundChecker>().FromInstance(_groundChecker).AsSingle();
     }
 
     private void BindConfig()
@@ -25,6 +20,7 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindPlayer()
     {
-        Container.Bind<Player>().AsSingle();
+        Player player = Container.InstantiatePrefabForComponent<Player>(_prefab, _spawnPosition.position, Quaternion.identity, null);
+        Container.BindInterfacesAndSelfTo<Player>().FromInstance(player).AsSingle();
     }
 }

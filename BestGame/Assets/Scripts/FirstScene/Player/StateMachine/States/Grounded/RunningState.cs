@@ -22,6 +22,6 @@ public class RunningState : GroundedState
         base.Update();
 
         if (IsHorizontalInputZero())
-            StateSwitcher.StateSwitch<IdlingState>();
+            StateSwitcher.SwitchState<IdlingState>();
     }
 }

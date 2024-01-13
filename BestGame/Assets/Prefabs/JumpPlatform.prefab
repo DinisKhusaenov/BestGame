@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4943983777122826314}
   - component: {fileID: 4943983777122826313}
   - component: {fileID: 2467206058807765453}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JumpPlatform
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 2563141615282254779}
   - component: {fileID: 1332577316147894403}
   - component: {fileID: 1135341925833070495}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JumpPlatformEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

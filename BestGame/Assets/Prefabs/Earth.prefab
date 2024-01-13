@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7355280590932180716}
   - component: {fileID: 7355280590932180715}
   - component: {fileID: 7355280590932180717}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Earth
   m_TagString: Ground
   m_Icon: {fileID: 0}

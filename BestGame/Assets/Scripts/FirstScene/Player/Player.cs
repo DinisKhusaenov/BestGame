@@ -2,11 +2,12 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ITarget
 {
+    [SerializeField] private GroundChecker _groundChecker;
+
     private PlayerInput _playerInput;
     private PlayerStateMachine _stateMachine;
-    private GroundChecker _groundChecker;
     private PlayerConfig _config;
     private CharacterController _characterController;
 
@@ -22,10 +23,19 @@ public class Player : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
     }
 
-    [Inject]
-    public void Construct(GroundChecker groundChecker, PlayerConfig config)
+    private void OnEnable()
     {
-        _groundChecker = groundChecker;
+        _playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
+    }
+
+    [Inject]
+    public void Construct(PlayerConfig config)
+    {
         _config = config;
     }
 
@@ -34,5 +44,10 @@ public class Player : MonoBehaviour
         _stateMachine.Update();
 
         _stateMachine.HandleInput();
+    }
+
+    public Transform GetPosition()
+    {
+        return transform;
     }
 }

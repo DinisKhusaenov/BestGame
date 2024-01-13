@@ -21,6 +21,6 @@ public class IdlingState : GroundedState
         if (IsHorizontalInputZero())
             return;
 
-        StateSwitcher.StateSwitch<RunningState>();
+        StateSwitcher.SwitchState<RunningState>();
     }
 }

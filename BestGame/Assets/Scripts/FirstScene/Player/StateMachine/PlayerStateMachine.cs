@@ -13,8 +13,8 @@ public class PlayerStateMachine : IStateSwitcher
         _states = new List<IState>()
         {
             new IdlingState(this, data, player),
-            new RunningState(this, data, player),
             new FallingState(this, data, player),
+            new RunningState(this, data, player),
             new JumpingState(this, data, player)
         };
 
@@ -22,7 +22,7 @@ public class PlayerStateMachine : IStateSwitcher
         _currentState.Enter();
     }
 
-    public void StateSwitch<State>() where State : IState
+    public void SwitchState<State>() where State : IState
     {
         IState state = _states.FirstOrDefault(state => state is State);
 

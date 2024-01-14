@@ -44,11 +44,9 @@ GameObject:
   - component: {fileID: 5554722316098562173}
   - component: {fileID: 5554722316098562170}
   - component: {fileID: 5554722316098562171}
-  - component: {fileID: 5554722316098562168}
   - component: {fileID: 9128144437414805897}
-  - component: {fileID: 445544427608046494}
   m_Layer: 6
-  m_Name: Skeleton
+  m_Name: SmallSkeleton
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,19 +188,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5554722316098562168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5554722316098562169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3f13fa769a761442a387270a159f4c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1
 --- !u!114 &9128144437414805897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1307908d16aaa6046ad562523640e953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 0
   _attackPoint: {fileID: 9079037007410056028}
   _attackRange: 1.16
   _playerLayer:
@@ -223,17 +209,3 @@ MonoBehaviour:
   _attackAnimationName: SkeletonAttack
   _attackDistance: 1
   _attackDamage: 1
---- !u!114 &445544427608046494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5554722316098562169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812d3716b14b2e14697244bf217aeb24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _deathTime: 2
-  _damageEffect: {fileID: 1332507698689381199, guid: ec1573a9057337542af3cfd83ad97286, type: 3}

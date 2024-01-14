@@ -13,11 +13,9 @@ GameObject:
   - component: {fileID: 2865495928098102769}
   - component: {fileID: 2865495928098102774}
   - component: {fileID: 2865495928098102775}
-  - component: {fileID: 2865495928098102770}
-  - component: {fileID: 2299937940904531045}
   - component: {fileID: 9043379550587148524}
   m_Layer: 6
-  m_Name: SkeletonSecond
+  m_Name: LargeSkeleton
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,39 +157,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2865495928098102770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2865495928098102772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3f13fa769a761442a387270a159f4c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1
---- !u!114 &2299937940904531045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2865495928098102772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1307908d16aaa6046ad562523640e953, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackPoint: {fileID: 3594815167943583748}
-  _attackRange: 1.53
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _attackAnimationName: SkeletonTwoAttack
-  _attackDistance: 1.6
-  _attackDamage: 2
 --- !u!114 &9043379550587148524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747225def1c80be48bdcd5c06c9fa740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 0
   _deathTime: 2.5
   _damageEffect: {fileID: 1332507698689381199, guid: ec1573a9057337542af3cfd83ad97286, type: 3}
 --- !u!1 &4613502266740250669

@@ -1,27 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class SkeletonWithSledgehammer : MonoBehaviour, IEnemy
+public class LargeSkeleton : EnemyMovement
 {
     [SerializeField] private float _deathTime = 2f;
     [SerializeField] private GameObject _damageEffect;
 
-    private int _hp = 5;
     private Animator _animatorController;
-
-    public void TakeDamage(int damage)
-    {
-        if (damage > 0)
-        {
-            _hp -= damage;
-            CreationDamageEffect();
-        }
-
-        if (_hp <= 0)
-        {
-            SkeletonDeath();
-        }
-    }
 
     private void Awake()
     {
@@ -30,8 +15,7 @@ public class SkeletonWithSledgehammer : MonoBehaviour, IEnemy
 
     private void SkeletonDeath()
     {
-        GetComponent<SkeletonAttack>().enabled = false;
-        GetComponent<SkeletonMovement>().enabled = false;
+        GetComponent<SmallSkeleton>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 

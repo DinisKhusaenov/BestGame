@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class MagicianAttack : MonoBehaviour, IAttack
+public class MagicianAttack : MonoBehaviour
 {
     [SerializeField] private float _attackDistance = 15f;
     [SerializeField] private Fireball _fireballPrefab;

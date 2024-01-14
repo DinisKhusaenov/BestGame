@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(SkeletonMovement))]
-public class SkeletonAttack : MonoBehaviour, IAttack
+public class SmallSkeleton : EnemyMovement
 {
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _attackRange;
@@ -13,7 +12,6 @@ public class SkeletonAttack : MonoBehaviour, IAttack
 
     private float _attackSpeed = 1.5f;
 
-    private SkeletonMovement _skeletonMovement;
     private Animator _animatorController;
     private Transform _target;
 
@@ -21,15 +19,10 @@ public class SkeletonAttack : MonoBehaviour, IAttack
 
     public void EnemyAttack()
     {
-        if (_skeletonMovement.GetDistanceToTarget(_target) <= _attackDistance && _skeletonAttackState == AttackState.Passive)
-        {
-            StartCoroutine(Attack());
-        }
     }
 
     private void Awake()
     {
-        _skeletonMovement = GetComponent<SkeletonMovement>();
         _animatorController = GetComponent<Animator>();
     }
 

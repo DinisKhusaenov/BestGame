@@ -1,27 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class Magician : MonoBehaviour, IEnemy
+public class Magician : Enemy
 {
     [SerializeField] private float _deathTime = 0.6f;
     [SerializeField] private GameObject _damageEffect;
 
     private Animator _animatorController;
-    private int _hp = 5;
-
-    public void TakeDamage(int damage)
-    {
-        if (damage > 0)
-        {
-            _hp -= damage;
-            CreationDamageEffect();
-        }
-
-        if (_hp <= 0)
-        {
-            MagicianDeath();
-        }
-    }
 
     private void Awake()
     {

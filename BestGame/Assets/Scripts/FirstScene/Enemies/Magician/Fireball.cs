@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class Fireball : MonoBehaviour, IMovable
+public class Fireball : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
 

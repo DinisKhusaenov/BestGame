@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class FlyingEyeMovement : MonoBehaviour, IMovable
+public class FlyingEyeMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
 

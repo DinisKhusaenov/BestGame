@@ -1,25 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class FlyingEye : MonoBehaviour, IEnemy
+public class FlyingEye : Enemy
 {
     [SerializeField] private float _deathTime = 2f;
 
     private Animator _animatorController;
-    private int _hp = 2;
-
-    public void TakeDamage(int damage)
-    {
-        if (damage > 0)
-        {
-            _hp -= damage;
-        }
-
-        if (_hp <= 0)
-        {
-            EyeDeath();
-        }
-    }
 
     private void Awake()
     {

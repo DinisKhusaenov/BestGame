@@ -7,7 +7,7 @@ public class Chest : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.TryGetComponent(out PlayerHealth player))
+        if (collision.collider.TryGetComponent(out Health player))
         {
             OnChestOpened?.Invoke();
         }

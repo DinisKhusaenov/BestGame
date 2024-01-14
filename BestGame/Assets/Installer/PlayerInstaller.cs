@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +11,13 @@ public class PlayerInstaller : MonoInstaller
     public override void InstallBindings()
     {
         BindConfig();
+        BindHealth();
         BindPlayer();
+    }
+
+    private void BindHealth()
+    {
+        Container.BindInterfacesAndSelfTo<Health>().AsSingle();
     }
 
     private void BindConfig()

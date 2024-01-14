@@ -19,3 +19,4 @@ MonoBehaviour:
       _timeToReachMaxHeight: 0.5
   _runningStateConfig:
     _speed: 5
+  _maxHealth: 3

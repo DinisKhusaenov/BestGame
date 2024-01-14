@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour, ITarget
+public class Player : MonoBehaviour, ITarget, IDamageable
 {
     [SerializeField] private GroundChecker _groundChecker;
 
@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, ITarget
     private PlayerStateMachine _stateMachine;
     private PlayerConfig _config;
     private CharacterController _characterController;
+
+    private IHealthStat _health;    
 
     public PlayerInput Input => _playerInput;
     public GroundChecker GroundChecker => _groundChecker;
@@ -50,4 +52,8 @@ public class Player : MonoBehaviour, ITarget
     {
         return transform;
     }
+
+    public void TakeDamage(int damage) => _health.Reduce(damage);
+
+    public void Heal(int value) => _health.Add(value);
 }

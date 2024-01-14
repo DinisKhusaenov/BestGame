@@ -61,13 +61,13 @@ public class Fireball : MonoBehaviour, IMovable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out PlayerHealth player))
+        if (collision.TryGetComponent(out Player player))
         {
             PlayerAttack(player);
         }
     }
 
-    private void PlayerAttack(PlayerHealth player)
+    private void PlayerAttack(Player player)
     {
         player.TakeDamage(_attackDamage);
         StartCoroutine(FireballDestroy());

@@ -11,9 +11,9 @@ public class DeathPlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out PlayerHealth playerHealth) && _isActive)
+        if (collision.TryGetComponent(out Player player) && _isActive)
         {
-            StartCoroutine(PlayerDamage(playerHealth));
+            StartCoroutine(PlayerDamage(player));
             _isActive = false;
             _isGone = false;
         }
@@ -21,13 +21,13 @@ public class DeathPlatform : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out PlayerHealth playerHealth))
+        if (collision.TryGetComponent(out Health playerHealth))
         {
             _isGone = true;
         }
     }
 
-    private IEnumerator PlayerDamage(PlayerHealth playerHealth)
+    private IEnumerator PlayerDamage(Player playerHealth)
     {
         playerHealth.TakeDamage(_damage);
 

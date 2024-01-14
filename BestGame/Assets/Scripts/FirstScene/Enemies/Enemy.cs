@@ -4,13 +4,20 @@ using Zenject;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public event Action Died;
+    public event Action<float> Died;
+    public event Action Damaged;
+
+    protected EnemyConfig Config { get; private set; }
+    protected float Speed;
 
     private int _health;
 
     [Inject]
-    public void Construct(EnemyConfig enemyConfig)
+    private void Construct(EnemyConfig enemyConfig)
     {
+        Config = enemyConfig;
+
+        Speed = Config.Speed;
         _health = enemyConfig.MaxHealth;
     }
 
@@ -20,11 +27,13 @@ public abstract class Enemy : MonoBehaviour
             throw new ArgumentOutOfRangeException(nameof(damage));
 
         _health -= damage;
+        Damaged?.Invoke();
 
         if (_health < 0)
         {
             _health = 0;
-            Died?.Invoke();
+            Died?.Invoke(Config.DeathTime);
+            Speed = 0;
         }
     }
 }

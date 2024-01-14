@@ -1,21 +1,19 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class FlyingEyeMovement : MonoBehaviour
+public abstract class FlyingEyeMovement : Enemy, IChangeDirection
 {
-    [SerializeField] private float _speed;
+    private const int RightDirection = 1;
+    private const int LeftDirection = -1;
 
-    private int _direction = 1;
+    private int _direction;
     private SpriteRenderer _spriteRenderer;
-
-    public void Move()
-    {
-        transform.Translate(_direction * _speed * Time.deltaTime, 0, 0);
-    }
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _direction = RightDirection;
     }
 
     private void Update()
@@ -23,23 +21,20 @@ public class FlyingEyeMovement : MonoBehaviour
         Move();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void ChangeDirection()
     {
-        if (collision.TryGetComponent(out DirectionChanger directionChanger))
-        {
-            ChangeDirection();
-        }
+        _direction *= LeftDirection;
+        Flip();
     }
 
-    private void ChangeDirection()
+    private void Move()
     {
-        _direction *= -1;
-        Flip();
+        transform.Translate(_direction * Speed * Time.deltaTime, 0, 0);
     }
 
     private void Flip()
     {
-        if (_direction == -1)
+        if (_direction == LeftDirection)
         {
             _spriteRenderer.flipX = true;
         }

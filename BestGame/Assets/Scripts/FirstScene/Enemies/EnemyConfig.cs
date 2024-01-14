@@ -7,7 +7,9 @@ public class EnemyConfig : ScriptableObject
     [SerializeField] private float _speed;
     [SerializeField] private int _maxHealth;
     [SerializeField] private int _attack;
+    [SerializeField] private float _attackRange;
     [SerializeField] private float _attackDistance;
+    [SerializeField] private float _attackSpeed;
     [SerializeField] private float _deathTime;
 
     public Enemy Prefab => _prefab;
@@ -16,4 +18,6 @@ public class EnemyConfig : ScriptableObject
     public float Speed => _speed;
     public float AttackDistance => _attackDistance;
     public float DeathTime => _deathTime;
+    public float AttackRange => _attackRange;
+    public float AttackSpeed => _attackSpeed;
 }

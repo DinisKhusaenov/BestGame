@@ -1,24 +1,26 @@
 using UnityEngine;
+using Zenject;
 
-public class EnemyMovement : Enemy
+[RequireComponent(typeof(SpriteRenderer))]
+public abstract class EnemyMovement : Enemy, IChangeDirection
 {
-    [SerializeField] private float _speed;
+    private const float MoveDistance = 5f;
+    private const int RightDirection = 1;
+    private const int LeftDirection = -1;
 
-    private int _direction = 1;
-    private float _moveDistance = 5f;
-    private Transform _target;
-
+    private int _direction;
+    private ITarget _target;
     private SpriteRenderer _spriteRenderer;
 
-    private void Move()
+    [Inject]
+    private void Construct(ITarget target)
     {
-        transform.Translate(_direction * _speed * Time.deltaTime, 0, 0);
+        _target = target;
+
+        _direction = RightDirection;
     }
 
-    public float GetDistanceToTarget(Transform to)
-    {
-        return Vector2.Distance(transform.position, to.position);
-    }
+    public Vector3 TargetPosition => _target.GetPosition().position;
 
     private void Awake()
     {
@@ -31,46 +33,48 @@ public class EnemyMovement : Enemy
         MoveToPlayer();
     }
 
+    public void ChangeDirection()
+    {
+        _direction *= LeftDirection;
+        Flip();
+    }
+
+    protected float GetDistanceTo(Vector3 to)
+    {
+        return Vector3.Distance(transform.position, to);
+    }
+
+    private void Move()
+    {
+        transform.Translate(_direction * Speed * Time.deltaTime, 0, 0);
+    }
+
     private void MoveToPlayer()
     {
-        if (GetDistanceToTarget(_target) <= _moveDistance)
+        if (GetDistanceTo(TargetPosition) <= MoveDistance)
         {
-            if (_target.position.x < transform.position.x)
+            if (TargetPosition.x < transform.position.x)
             {
-                _direction = -1;
+                _direction = LeftDirection;
                 Flip();
             }
             else
             {
-                _direction = 1;
+                _direction = RightDirection;
                 Flip();
             }
         }
     }
 
-    private void ChangeDirection()
-    {
-        _direction *= -1;
-        Flip();
-    }
-
     private void Flip()
     {
-        if (_direction == -1)
+        if (_direction == LeftDirection)
         {
             _spriteRenderer.flipX = true;
         }
         else
         {
             _spriteRenderer.flipX = false;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out DirectionChanger directionChanger))
-        {
-            ChangeDirection();
         }
     }
 }

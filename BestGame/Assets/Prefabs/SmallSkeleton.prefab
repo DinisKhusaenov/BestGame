@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5554722316098562170}
   - component: {fileID: 5554722316098562171}
   - component: {fileID: 9128144437414805897}
+  - component: {fileID: 6045503765284293055}
   m_Layer: 6
   m_Name: SmallSkeleton
   m_TagString: Ground
@@ -200,12 +201,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1307908d16aaa6046ad562523640e953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
   _attackPoint: {fileID: 9079037007410056028}
-  _attackRange: 1.16
   _playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  _attackAnimationName: SkeletonAttack
-  _attackDistance: 1
-  _attackDamage: 1
+--- !u!114 &6045503765284293055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5554722316098562169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bf4001d652a0244891e1dae27b0d77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageEffect: {fileID: 1332507698689381197, guid: ec1573a9057337542af3cfd83ad97286, type: 3}

@@ -1,25 +1,34 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class MagicianAttack : MonoBehaviour
+public class MagicianAttack : Enemy
 {
-    [SerializeField] private float _attackDistance = 15f;
-    [SerializeField] private Fireball _fireballPrefab;
+    private const int RightDirection = 1;
+    private const int LeftDirection = -1;
 
-    private int _attackDamage = 1;
-    private float _attackSpeed = 3f;
     private AttackState _attackState = AttackState.Passive;
     private int _direction;
-    private readonly float _fireballSpawnDistance = 0.7f;
 
-    private Transform _target;
+    private ITarget _target;
+    private FireballSpawner _spawner;
     private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
+
+    [Inject]
+    private void Construct(ITarget target, FireballSpawner spawner)
+    {
+        _target = target;
+        _spawner = spawner;
+
+        _direction = RightDirection;
+    }
+
+    public Vector3 TargetPosition => _target.GetPosition().position;
 
     public void EnemyAttack()
     {
-        if (GetDistanceToTarget(_target) <= _attackDistance)
+        if (GetDistanceTo(TargetPosition) <= Config.AttackDistance)
         {
             if (_attackState == AttackState.Passive)
                 StartCoroutine(Attack());
@@ -31,7 +40,6 @@ public class MagicianAttack : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -39,56 +47,38 @@ public class MagicianAttack : MonoBehaviour
         EnemyAttack();
     }
 
-    private float GetDistanceToTarget(Transform to)
+    private float GetDistanceTo(Vector3 to)
     {
-        return Vector2.Distance(transform.position, to.position);
+        return Vector3.Distance(transform.position, to);
     }
 
     private void Flip()
     {
-        if (_target.position.x < transform.position.x)
+        if (TargetPosition.x < transform.position.x)
         {
             _spriteRenderer.flipX = true;
-            _direction = -1;
+            _direction = LeftDirection;
         }
         else
         {
             _spriteRenderer.flipX = false;
-            _direction = 1;
+            _direction = RightDirection;
         }
     }
 
     private IEnumerator Attack()
     {
         _attackState = AttackState.Active;
-        _animator.SetTrigger("MagicianAttack");
 
         yield return new WaitForSeconds(0.5f);
         FireballCreation();
 
-        yield return new WaitForSeconds(_attackSpeed - 0.5f);
+        yield return new WaitForSeconds(Config.AttackSpeed - 0.5f);
         _attackState = AttackState.Passive;
     }
 
     private void FireballCreation()
     {
-        var newFireball = Instantiate(_fireballPrefab);
-        newFireball.Direction = _direction;
-        newFireball.AttackDamage = _attackDamage;
-
-        if (_direction == 1)
-            newFireball.transform.position = new Vector3(transform.position.x + _fireballSpawnDistance, transform.position.y, 0);
-        else
-            newFireball.transform.position = new Vector3(transform.position.x - _fireballSpawnDistance, transform.position.y, 0);
-
-        StartCoroutine(FireballDestruction(newFireball));
-    }
-
-    private IEnumerator FireballDestruction(Fireball fireball)
-    {
-        yield return new WaitForSeconds(3f);
-
-        if (fireball != null)
-            StartCoroutine(fireball.FireballDestroy());
+        
     }
 }

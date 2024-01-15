@@ -52,9 +52,3 @@ public class PlayerCombat : MonoBehaviour
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
 }
-
-public enum AttackState
-{
-    Active,
-    Passive
-}

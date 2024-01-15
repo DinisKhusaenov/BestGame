@@ -1,46 +1,18 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class Fireball : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5f;
+    private const int ZeroSpeed = 0;
 
-    private int _attackDamage = 1;
+    public event Action<float> Destoryed;
+
+    private float _speed;
+    private int _damage ;
+    private float _destroyTime;
     private int _direction;
-    private float _destroyTime = 0.6f;
-
-    private Animator _animator;
-
-    public int AttackDamage
-    {
-        get { return _attackDamage; }
-        set { if (value > 0) _attackDamage = value; }
-    }
-
-    public int Direction
-    {
-        get { return _direction; }
-        set { _direction = value; }
-    }
-
-    public IEnumerator FireballDestroy()
-    {
-        _animator?.SetTrigger("FireballEnd");
-        yield return new WaitForSeconds(_destroyTime);
-        Destroy(gameObject);
-    }
-
-    public void Move()
-    {
-        transform.Translate(_direction * _speed * Time.deltaTime, 0, 0);
-    }
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
+    private float _attackTime;
+    private float _timer;
 
     private void Start()
     {
@@ -57,20 +29,42 @@ public class Fireball : MonoBehaviour
     private void Update()
     {
         Move();
+        DestroyFireball();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent(out IDamageable player))
         {
-            PlayerAttack(player);
+            player.TakeDamage(_damage);
+            _speed = ZeroSpeed;
+            Destoryed?.Invoke(_destroyTime);
         }
     }
 
-    private void PlayerAttack(Player player)
+    public void Initialize(float speed, int damage, float destroyTime)
     {
-        player.TakeDamage(_attackDamage);
-        StartCoroutine(FireballDestroy());
-        _speed = 0;
+        _speed = speed;
+        _damage = damage;
+        _destroyTime = destroyTime;
+    }
+
+    public void Launch(int direction, float attackTime)
+    {
+        _direction = direction;
+        _attackTime = attackTime;
+    }
+
+    private void Move()
+    {
+        transform.Translate(_direction * _speed * Time.deltaTime, 0, 0);
+    }
+
+    private void DestroyFireball()
+    {
+        if (_timer >= _attackTime)
+            Destoryed?.Invoke(_destroyTime);
+
+        _timer += Time.deltaTime;
     }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2865495928098102774}
   - component: {fileID: 2865495928098102775}
   - component: {fileID: 9043379550587148524}
+  - component: {fileID: 237065631421500787}
   m_Layer: 6
   m_Name: LargeSkeleton
   m_TagString: Ground
@@ -169,9 +170,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747225def1c80be48bdcd5c06c9fa740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
-  _deathTime: 2.5
-  _damageEffect: {fileID: 1332507698689381199, guid: ec1573a9057337542af3cfd83ad97286, type: 3}
+  _attackPoint: {fileID: 3594815167943583748}
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &237065631421500787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2865495928098102772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815ed876af61f9f4fb5b2ccc1e10478e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageEffect: {fileID: 1332507698689381197, guid: ec1573a9057337542af3cfd83ad97286, type: 3}
 --- !u!1 &4613502266740250669
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,5 +16,7 @@ MonoBehaviour:
   _speed: 0
   _maxHealth: 5
   _attack: 1
+  _attackRange: 0
   _attackDistance: 15
+  _attackSpeed: 3
   _deathTime: 0.6

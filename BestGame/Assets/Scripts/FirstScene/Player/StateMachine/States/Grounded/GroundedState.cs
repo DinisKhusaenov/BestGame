@@ -10,11 +10,15 @@ public abstract class GroundedState : ActionState
     public override void Enter()
     {
         base.Enter();
+
+        View.StartGrounded();
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        View.StopGrounded();
     }
 
     public override void Update()

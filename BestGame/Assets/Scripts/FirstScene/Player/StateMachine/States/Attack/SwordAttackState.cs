@@ -26,11 +26,15 @@ public class SwordAttackState : AttackState
         }
 
         _player.StartCoroutine(DisableAttack());
+
+        View.StartSwordAttack();
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        View.StopSwordAttack();
     }
 
     public override void Update()

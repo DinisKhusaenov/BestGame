@@ -7,11 +7,15 @@ public class IdlingState : GroundedState
     public override void Enter()
     {
         base.Enter();
+
+        View.StartIdling();
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        View.StopIdling();
     }
 
     public override void Update()

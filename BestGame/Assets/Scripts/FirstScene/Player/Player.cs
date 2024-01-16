@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, ITarget, IDamageable
 {
     [SerializeField] private GroundChecker _groundChecker;
     [SerializeField] private Transform _attackPoint;
+    [SerializeField] private PlayerView _playerView;
 
     private PlayerInput _playerInput;
     private PlayerStateMachine _stateMachine;
@@ -19,9 +20,11 @@ public class Player : MonoBehaviour, ITarget, IDamageable
     public PlayerConfig Config => _config;
     public CharacterController Controller => _characterController;
     public Transform AttackPoint => _attackPoint;
+    public PlayerView View => _playerView;
 
     private void Awake()
     {
+        _playerView.Initialize();
         _playerInput = new PlayerInput();
         _stateMachine = new PlayerStateMachine(this);
         _characterController = GetComponent<CharacterController>();

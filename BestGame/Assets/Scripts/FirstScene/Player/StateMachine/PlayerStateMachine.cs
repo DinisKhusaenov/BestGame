@@ -15,7 +15,8 @@ public class PlayerStateMachine : IStateSwitcher
             new IdlingState(this, data, player),
             new FallingState(this, data, player),
             new RunningState(this, data, player),
-            new JumpingState(this, data, player)
+            new JumpingState(this, data, player),
+            new SwordAttackState(this, data, player),
         };
 
         _currentState = _states[0];

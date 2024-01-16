@@ -10,11 +10,14 @@ public class JumpingState : AirbornState
         base.Enter();
 
         Data.YVelocity = _jumpingStateConfig.StartyVelocity;
+        View.StartJumping();
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        View.StopJumping();
     }
 
     public override void Update()

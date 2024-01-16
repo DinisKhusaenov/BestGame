@@ -16,6 +16,7 @@ public abstract class ActionState : IState
 
     protected PlayerInput Input => _player.Input;
     protected CharacterController PlayerController => _player.Controller;
+    protected PlayerView View => _player.View;
     private Quaternion TurnRight => new Quaternion(0, 0, 0, 0);
     protected Quaternion TurnLeft => Quaternion.Euler(0, 180, 0);
 

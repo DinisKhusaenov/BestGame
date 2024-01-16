@@ -10,11 +10,14 @@ public class RunningState : GroundedState
         base.Enter();
 
         Data.Speed = _runningStateConfig.Speed;
+        View.StartRunning();
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        View.StopRunning();
     }
 
     public override void Update()

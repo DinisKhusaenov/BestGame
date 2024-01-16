@@ -12,7 +12,7 @@ public class EnemySpawnerInstaller : MonoInstaller
     public override void InstallBindings()
     {
         BindEnemyFactory();
-        BindEnemySpawner();
+        //BindEnemySpawner();
     }
 
     private void BindEnemySpawner()

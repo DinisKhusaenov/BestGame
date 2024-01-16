@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3846546288771630959}
   - component: {fileID: 3846546288771630958}
   - component: {fileID: 3846546288771630931}
-  - component: {fileID: 3846546288771630935}
   - component: {fileID: 3846546289223574580}
   - component: {fileID: 3846546289223574579}
+  - component: {fileID: 1223781068823891147}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -111,18 +111,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3846546288771630935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3846546288771630957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7832b3d66e1e5740a032e20eaf31fed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3846546289223574580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundChecker: {fileID: 500400768}
+  _attackPoint: {fileID: 3846546289282689485}
+  _playerView: {fileID: 1223781068823891147}
 --- !u!143 &3846546289223574579
 CharacterController:
   m_ObjectHideFlags: 0
@@ -154,6 +144,23 @@ CharacterController:
   m_SkinWidth: 0.001
   m_MinMoveDistance: 0.001
   m_Center: {x: -0.03, y: 0, z: 0}
+--- !u!114 &1223781068823891147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3846546288771630957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df18330ad1073364a831bfa6c282b61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpEffect: {fileID: 8723592223677314379, guid: 5f6d8798d73c7494eb8b683ad6ddb208, type: 3}
+  _walkEffect: {fileID: 3846546289444369847}
+  _damageEffect: {fileID: 1332507698689381197, guid: 8c3a78e29f7269740b59698b26718d8e, type: 3}
+  _normalColor: {r: 1, g: 1, b: 1, a: 1}
+  _damageColor: {r: 1, g: 0, b: 0, a: 0.68235296}
 --- !u!1 &3846546288929184278
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,5 @@
+using UnityEngine.InputSystem;
+
 public class FallingState : AirbornState
 {
     private readonly GroundChecker _groundChecker;
@@ -29,4 +31,20 @@ public class FallingState : AirbornState
                 StateSwitcher.SwitchState<RunningState>();
         }
     }
+
+    protected override void AddInputActionsCallbacks()
+    {
+        base.AddInputActionsCallbacks();
+
+        Input.Action.Attack.started += OnSwordAttackButtonPressed;
+    }
+
+    protected override void RemoveInputActionsCallbacks()
+    {
+        base.RemoveInputActionsCallbacks();
+
+        Input.Action.Attack.started -= OnSwordAttackButtonPressed;
+    }
+
+    private void OnSwordAttackButtonPressed(InputAction.CallbackContext obj) => StateSwitcher.SwitchState<SwordAttackState>();
 }

@@ -8,7 +8,7 @@ public class MagicianAttack : Enemy
     private const int RightDirection = 1;
     private const int LeftDirection = -1;
 
-    private AttackState _attackState = AttackState.Passive;
+    private EnemyAttackState _attackState = EnemyAttackState.Passive;
     private int _direction;
 
     private ITarget _target;
@@ -30,7 +30,7 @@ public class MagicianAttack : Enemy
     {
         if (GetDistanceTo(TargetPosition) <= Config.AttackDistance)
         {
-            if (_attackState == AttackState.Passive)
+            if (_attackState == EnemyAttackState.Passive)
                 StartCoroutine(Attack());
 
             Flip();
@@ -68,13 +68,13 @@ public class MagicianAttack : Enemy
 
     private IEnumerator Attack()
     {
-        _attackState = AttackState.Active;
+        _attackState = EnemyAttackState.Active;
 
         yield return new WaitForSeconds(0.5f);
         FireballCreation();
 
         yield return new WaitForSeconds(Config.AttackSpeed - 0.5f);
-        _attackState = AttackState.Passive;
+        _attackState = EnemyAttackState.Passive;
     }
 
     private void FireballCreation()

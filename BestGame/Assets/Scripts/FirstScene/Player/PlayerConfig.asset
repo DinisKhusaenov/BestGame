@@ -20,3 +20,11 @@ MonoBehaviour:
   _runningStateConfig:
     _speed: 5
   _maxHealth: 3
+  _attackStateConfig:
+    _swordAttackStateConfig:
+      _damage: 3
+      _attackRange: 1
+      _attackSpeed: 1
+      _enemyLayer:
+        serializedVersion: 2
+        m_Bits: 64

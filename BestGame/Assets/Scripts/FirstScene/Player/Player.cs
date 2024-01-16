@@ -5,6 +5,7 @@ using Zenject;
 public class Player : MonoBehaviour, ITarget, IDamageable
 {
     [SerializeField] private GroundChecker _groundChecker;
+    [SerializeField] private Transform _attackPoint;
 
     private PlayerInput _playerInput;
     private PlayerStateMachine _stateMachine;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour, ITarget, IDamageable
     public GroundChecker GroundChecker => _groundChecker;
     public PlayerConfig Config => _config;
     public CharacterController Controller => _characterController;
+    public Transform AttackPoint => _attackPoint;
 
     private void Awake()
     {

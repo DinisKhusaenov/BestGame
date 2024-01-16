@@ -879,6 +879,7 @@ GameObject:
   - component: {fileID: 181711465}
   - component: {fileID: 181711464}
   - component: {fileID: 181711463}
+  - component: {fileID: 181711466}
   m_Layer: 5
   m_Name: AttackBtn
   m_TagString: Untagged
@@ -949,19 +950,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 181711464}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerInputController, Assembly-CSharp
-        m_MethodName: OnAttackBtnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &181711464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1000,6 +989,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181711461}
   m_CullTransparentMesh: 1
+--- !u!114 &181711466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181711461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Keyboard>/enter
 --- !u!1001 &190782275
 PrefabInstance:
   m_ObjectHideFlags: 0

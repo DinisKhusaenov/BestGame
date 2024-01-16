@@ -1,7 +1,6 @@
-using System;
 using UnityEngine.InputSystem;
 
-public abstract class GroundedState : MovementState
+public abstract class GroundedState : ActionState
 {
     private readonly GroundChecker _groundChecker;
 
@@ -30,15 +29,18 @@ public abstract class GroundedState : MovementState
     {
         base.AddInputActionsCallbacks();
 
-        Input.Movement.Jump.started += OnJumpButtonPressed;
+        Input.Action.Jump.started += OnJumpButtonPressed;
+        Input.Action.Attack.started += OnSwordAttackButtonPressed;
     }
 
     protected override void RemoveInputActionsCallbacks()
     {
         base.RemoveInputActionsCallbacks();
 
-        Input.Movement.Jump.started -= OnJumpButtonPressed;
+        Input.Action.Jump.started -= OnJumpButtonPressed;
+        Input.Action.Attack.started -= OnSwordAttackButtonPressed;
     }
 
     private void OnJumpButtonPressed(InputAction.CallbackContext obj) => StateSwitcher.SwitchState<JumpingState>();
+    private void OnSwordAttackButtonPressed(InputAction.CallbackContext obj) => StateSwitcher.SwitchState<SwordAttackState>();
 }

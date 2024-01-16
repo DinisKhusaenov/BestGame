@@ -17,7 +17,7 @@ public class EnemySpawnerInstaller : MonoInstaller
 
     private void BindEnemySpawner()
     {
-        Container.Bind<EnemySpawner>().AsSingle().WithArguments(_smallSkeletonSpawnPoints, _largeSkeletonSpawnPoints, _magicianSpawnPoints, _flyingSpawnPoints);
+        Container.Bind<EnemySpawner>().AsSingle().WithArguments(_smallSkeletonSpawnPoints, _largeSkeletonSpawnPoints, _magicianSpawnPoints, _flyingSpawnPoints).NonLazy();
     }
 
     private void BindEnemyFactory()

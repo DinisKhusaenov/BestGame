@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -20,7 +19,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetOnJumpAnimation()
     {
-        if (PlayerCombat.attackState == AttackState.Passive)
             _animatorController.Play("Jump");
 
         CreationJumpEffect();
@@ -29,7 +27,6 @@ public class PlayerAnimation : MonoBehaviour
     private void SetOnAttackAnimation()
     {
         _animatorController.SetTrigger("PlayerAttack");
-        PlayerCombat.attackState = AttackState.Active;
     }
 
     private void GetDamage()

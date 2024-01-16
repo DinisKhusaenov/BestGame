@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public abstract class MovementState : IState
+public abstract class ActionState : IState
 {
     protected readonly IStateSwitcher StateSwitcher;
     protected readonly StateMachineData Data;
 
     private readonly Player _player;
 
-    protected MovementState(IStateSwitcher stateSwitcher, StateMachineData data, Player player)
+    protected ActionState(IStateSwitcher stateSwitcher, StateMachineData data, Player player)
     {
         StateSwitcher = stateSwitcher;
         Data = data;
@@ -62,5 +62,5 @@ public abstract class MovementState : IState
 
     private Vector3 GetConvertedVelocity() => new Vector3(Data.XVelocity, Data.YVelocity, 0); 
 
-    private float ReadHorizontalInput() => Input.Movement.Move.ReadValue<float>();
+    private float ReadHorizontalInput() => Input.Action.Move.ReadValue<float>();
 }

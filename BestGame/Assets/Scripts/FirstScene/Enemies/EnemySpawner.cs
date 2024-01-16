@@ -16,9 +16,12 @@ public class EnemySpawner
         _magicianSpawnPoints = magicianSpawnPoints;
         _flyingSpawnPoints = flyingSpawnPoints;
         _enemyFactory = enemyFactory;
+
+        Spawn();
+        Debug.Log("EnemySpawner");
     }
 
-    public void Spawn()
+    private void Spawn()
     {
         SpawnSmallSkeleton();
         SpawnLargeSkeleton();

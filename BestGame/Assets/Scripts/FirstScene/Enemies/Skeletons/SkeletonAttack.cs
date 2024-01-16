@@ -8,11 +8,11 @@ public abstract class SkeletonAttack : EnemyMovement
 
     private int _attackDamage;
     private float _attackSpeed;
-    private AttackState _attackState;
+    private EnemyAttackState _attackState;
 
     private void Awake()
     {
-        _attackState = AttackState.Passive;
+        _attackState = EnemyAttackState.Passive;
     }
 
     private void Update()
@@ -24,14 +24,14 @@ public abstract class SkeletonAttack : EnemyMovement
     {
         if (GetDistanceTo(TargetPosition) <= Config.AttackDistance)
         {
-            if (_attackState == AttackState.Passive)
+            if (_attackState == EnemyAttackState.Passive)
                 StartCoroutine(Attack());
         }
     }
 
     private IEnumerator Attack()
     {
-        _attackState = AttackState.Active;
+        _attackState = EnemyAttackState.Active;
         yield return new WaitForSeconds(_attackSpeed / 2);
 
         Collider2D player = Physics2D.OverlapCircle(_attackPoint.position, Config.AttackRange, _playerLayer);
@@ -40,7 +40,7 @@ public abstract class SkeletonAttack : EnemyMovement
 
         yield return new WaitForSeconds(_attackSpeed / 2);
 
-        _attackState = AttackState.Passive;
+        _attackState = EnemyAttackState.Passive;
     }
 
     private void OnDrawGizmosSelected()

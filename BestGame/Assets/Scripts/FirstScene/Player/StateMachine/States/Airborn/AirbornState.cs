@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class AirbornState : MovementState
+public abstract class AirbornState : ActionState
 {
     private readonly AirbornStateConfig _config;
 

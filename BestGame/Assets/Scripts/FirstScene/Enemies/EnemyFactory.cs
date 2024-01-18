@@ -26,6 +26,7 @@ public class EnemyFactory
     {
         EnemyConfig config = GetConfig(enemyType);
         Enemy instance = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
+        instance.Initialize(config);
         return instance;
     }
 

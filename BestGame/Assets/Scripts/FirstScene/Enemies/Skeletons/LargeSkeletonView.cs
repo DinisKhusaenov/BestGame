@@ -12,12 +12,13 @@ public class LargeSkeletonView : MonoBehaviour
 
     [SerializeField] private ParticleSystem _damageEffect;
 
-    private Animator _animatorController;
     private Enemy _enemy;
+    private Animator _animatorController;
 
     private void Awake()
     {
         _animatorController = GetComponent<Animator>();
+        _enemy = GetComponent<Enemy>();
     }
 
     private void OnEnable()

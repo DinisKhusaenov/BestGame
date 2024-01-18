@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Zenject;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -12,8 +11,7 @@ public abstract class Enemy : MonoBehaviour
 
     private int _health;
 
-    [Inject]
-    private void Construct(EnemyConfig enemyConfig)
+    public void Initialize(EnemyConfig enemyConfig)
     {
         Config = enemyConfig;
 

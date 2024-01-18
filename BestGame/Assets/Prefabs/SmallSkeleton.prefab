@@ -218,3 +218,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageEffect: {fileID: 1332507698689381197, guid: ec1573a9057337542af3cfd83ad97286, type: 3}
+  _enemy: {fileID: 9128144437414805897}

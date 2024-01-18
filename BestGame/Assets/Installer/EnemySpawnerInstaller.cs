@@ -1,23 +1,19 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class EnemySpawnerInstaller : MonoInstaller 
 {
-    [SerializeField] private List<Transform> _smallSkeletonSpawnPoints;
-    [SerializeField] private List<Transform> _largeSkeletonSpawnPoints;
-    [SerializeField] private List<Transform> _magicianSpawnPoints;
-    [SerializeField] private List<Transform> _flyingSpawnPoints;
+    [SerializeField] EnemySpawnPoints _spawnPoints;
 
     public override void InstallBindings()
     {
         BindEnemyFactory();
-        //BindEnemySpawner();
+        BindEnemySpawner();
     }
 
     private void BindEnemySpawner()
     {
-        Container.Bind<EnemySpawner>().AsSingle().WithArguments(_smallSkeletonSpawnPoints, _largeSkeletonSpawnPoints, _magicianSpawnPoints, _flyingSpawnPoints).NonLazy();
+        Container.Bind<EnemySpawner>().AsSingle().WithArguments(_spawnPoints);
     }
 
     private void BindEnemyFactory()

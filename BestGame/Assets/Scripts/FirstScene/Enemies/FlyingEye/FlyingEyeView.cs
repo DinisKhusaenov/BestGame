@@ -9,8 +9,8 @@ public class FlyingEyeView : MonoBehaviour
 {
     private const string DeathAnimation = "EyeDeath";
 
-    private Animator _animatorController;
     private Enemy _enemy;
+    private Animator _animatorController;
 
     private void Awake()
     {

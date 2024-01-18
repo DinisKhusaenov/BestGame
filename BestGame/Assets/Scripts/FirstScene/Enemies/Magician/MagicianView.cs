@@ -11,12 +11,13 @@ public class MagicianView : MonoBehaviour
 
     [SerializeField] private GameObject _damageEffect;
 
-    private Animator _animator;
     private Enemy _enemy;
+    private Animator _animator;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _enemy = GetComponent<Enemy>();
     }
 
     private void OnEnable()
